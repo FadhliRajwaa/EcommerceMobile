@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumericious</title>
+  <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css" />
+  <style>
+    /* CSS untuk membuat header sticky */
+    .sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      /* agar header muncul di atas konten */
+      animation: fadeInDown 0.5s ease;
+      transition: opacity 0.3s ease;
+      /* untuk animasi fade in */
+    }
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-100%);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* CSS untuk menampilkan sub menu saat dihover */
+    .navbar-nav li:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: #fafbfc;
+      /* Warna latar belakang sub menu */
+      min-width: 200px;
+      /* Lebar sub menu */
+      z-index: 1000;
+      /* Agar sub menu muncul di atas konten */
+    }
+
+    .dropdown-menu .dropdown-item {
+      color: #000000;
+      /* Warna teks sub menu */
+    }
+
+    .dropdown-item:hover {
+      background-color: #495057;
+      /* Warna latar belakang saat dihover */
+    }
+
+    .carousel-item img {
+      height: 550px;
+      /* Sesuaikan dengan tinggi yang diinginkan */
+      width: 450px;
+      /* Biarkan lebarnya menyesuaikan proporsi */
+    }
+
+    .gambar-5 {
+      width: 300px;
+      margin-left: 15px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .gambar-11 {
+      width: 300px;
+      margin-left: 80px;
+      margin-top: 90px;
+      position: relative;
+      z-index: 0;
+    }
+
+    .kartu-3 {
+      margin-left: 120px;
+    }
+
+    .kartu-2 {
+      margin-left: 110px;
+    }
+
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @media screen and (max-width: 768px) {
+      .gambar-container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .gambar-5,
+      .gambar-11 {
+        width: 350px;
+        margin-left: 32px;
+      }
+
+      .gambar-11 {
+        margin-top: 10px;
+        /* Ubah margin-top sesuai kebutuhan */
+      }
+
+      .kartu-1 {
+        margin-left: 80px;
+        margin-top: 10px;
+      }
+
+      .kartu-2 {
+        margin-left: 80px;
+        margin-top: 10px;
+      }
+
+      .kartu-3 {
+        margin-left: 80px;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-dark sticky-top">
+    <!-- Tambahkan kelas sticky-top -->
+    <div class="container-fluid">
+      <a class="navbar-brand fw-medium text-light" href="#">Lumericious</a>
+      <button class="navbar-toggler bg-body-tertiary" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 position-relative">
+          <!-- Navbar Home -->
+          <li class="nav-item">
+            <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+          </li>
+          <!-- Navbar Home End -->
+
+          <!-- Navbar Tentang Kami -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Tentang Kami
+            </a>
+            <!-- Sub Menu Tentang Kami -->
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="#">Latar Belakang Lumericious</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider bg-black" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Visi & Misi</a>
+              </li>
+            </ul>
+            <!-- Sub Menu Tentang Kami End -->
+          </li>
+          <!-- Navbar Tentang Kami End -->
+
+          <!-- Navbar Produk  -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">Produk</a>
+            <!-- Sub Menu Produk -->
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Semua Produk</a></li>
+              <li>
+                <hr class="dropdown-divider bg-black" />
+              </li>
+              <li><a class="dropdown-item" href="#">Varian Rasa</a></li>
+              <li>
+                <hr class="dropdown-divider bg-black" />
+              </li>
+              <li><a class="dropdown-item" href="#">Terlaris</a></li>
+            </ul>
+            <!-- Sub Menu Produk End -->
+          </li>
+          <!-- Navbar Produk End -->
+
+          <!-- Navbar Cara Pemesanan & Pembayaran -->
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#">Cara Pemesanan & Pembayaran</a>
+          </li>
+          <!-- Navbar Cara Pemasanan & Pembayaran End -->
+
+          <!-- Navbar Hubungi Kami -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">Hubungi Kami</a>
+            <!-- Sub Menu Produk -->
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Media Sosial</a></li>
+              <li>
+                <hr class="dropdown-divider bg-black" />
+              </li>
+              <li><a class="dropdown-item" href="#">Alamat & Lokasi</a></li>
+            </ul>
+            <!-- Sub Menu Hubungi Kami End -->
+          </li>
+        </ul>
+
+        <!-- Search -->
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+          <button class="btn btn-outline-success" type="submit">
+            Search
+          </button>
+        </form>
+        <!-- Search End -->
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar End -->
+
+  <!-- Carousel Slide -->
+  <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="gambar-3.jpeg" class="w-100" alt="..." />
+      </div>
+      <div class="carousel-item">
+        <img src="gambar-4.jpeg" class="w-100" alt="..." />
+      </div>
+      <div class="carousel-item">
+        <img src="gambar-5.jpeg" class="w-100" alt="..." />
+      </div>
+    </div>
+  </div>
+  <!-- Carousel Slide End -->
+
+  <section class="bg-body-secondary">
+    <!-- Container 1 -->
+    <div class="container">
+      <div class="row">
+        <h5 class="mt-4">
+          Lumericious: Keripik Singkong, Lumer di Lidah, Luar Biasa Rasanya
+        </h5>
+        <div class="col-md-6 mt-4">
+          <p>
+            Pernahkah Anda membayangkan keripik singkong yang begitu sempurna,
+            sehingga setiap gigitan memberikan sensasi lumer di lidah yang tak
+            tertandingi? Lumericious adalah jawabannya. Dibuat dari singkong
+            pilihan, keripik kami mengubah setiap momen menjadi pengalaman rasa
+            yang luar biasa.
+            <br /><br />
+            Dengan Lumericious, Anda bukan hanya menikmati keripik, tapi
+            merayakan kelezatan yang tak bisa ditemukan di tempat lain. Ini
+            tentang menemukan kebahagiaan dalam gigitan, kejutan dalam renyah,
+            dan kepuasan dalam setiap kemasan.
+            <br /><br />
+            Saatnya meninggalkan biasa. Masuki dunia Lumericious, dimana keripik
+            singkong bukan sekedar camilan, tapi pintu gerbang menuju
+            petualangan rasa yang memikat. Bersiaplah, karena setiap gigitan
+            adalah janji kenikmatan yang akan membuat Anda terpikat.
+          </p>
+        </div>
+        <div class="col-md-3">
+          <div class="row gambar-container">
+            <div class="col-6">
+              <img class="gambar-5 rounded-4" src="gambar-5.jpeg" alt="">
+            </div>
+
+            <div class="col-6">
+              <img class="gambar-11 rounded-4" src="gambar-11.jpeg" alt="">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+    <!-- Container 1 End -->
+  </section>
+  <br>
+  <br>
+  <!-- Container 2 -->
+
+  <div class="container">
+    <div class="row">
+      <div class="kartu-1 card" style="width: 18rem;">
+        <img src="gambar-13.jpeg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">ChocoCrunch Lumericious</h5>
+          <p class="card-text">Temukan keajaiban rasa cokelat yang kaya dalam setiap gigitan ChocoCrunch Lumericious.
+            Keripik singkong yang renyah, dipadukan sempurna dengan lapisan cokelat lezat, memberikan sensasi manis yang
+            memanjakan dan kepuasan yang tak tertandingi.</p>
+          <button class="btn btn-primary pesan-sekarang" data-product="ChocoCrunch Lumericious"
+            data-image="gambar-13.jpeg"
+            data-description="Temukan keajaiban rasa cokelat yang kaya dalam setiap gigitan ChocoCrunch Lumericious. Keripik singkong yang renyah, dipadukan sempurna dengan lapisan cokelat lezat, memberikan sensasi manis yang memanjakan dan kepuasan yang tak tertandingi.">Pesan
+            Sekarang</button>
+        </div>
+      </div>
+      <div class="kartu-2 card" style="width: 18rem;">
+        <img src="gambar-3.jpeg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">SweetMeltz Lumericious</h5>
+          <p class="card-text">SweetMeltz Lumericious, snack yang sempurna untuk mengisi momen istimewa Anda. Dengan
+            topping cokelat yang manis dan tekstur singkong yang renyah, ini adalah perpaduan rasa yang akan memikat
+            hati dan lidah Anda.</p>
+          <button class="btn btn-primary pesan-sekarang" data-product="SweetMeltz Lumericious"
+            data-image="gambar-3.jpeg"
+            data-description="SweetMeltz Lumericious, snack yang sempurna untuk mengisi momen istimewa Anda. Dengan topping cokelat yang manis dan tekstur singkong yang renyah, ini adalah perpaduan rasa yang akan memikat hati dan lidah Anda.">Pesan
+            Sekarang</button>
+        </div>
+      </div>
+      <div class="kartu-3 card" style="width: 18rem;">
+        <img src="gambar-4.jpeg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">DecadentBites Lumericious</h5>
+          <p class="card-text">Pengalaman rasa yang mewah menanti dengan DecadentBites Lumericious. Keripik singkong
+            yang renyah berselimutkan cokelat yang kaya akan membawa Anda pada perjalanan rasa yang elegan dan
+            memuaskan.</p>
+          <button class="btn btn-primary pesan-sekarang" data-product="DecadentBites Lumericious"
+            data-image="gambar-4.jpeg"
+            data-description="Pengalaman rasa yang mewah menanti dengan DecadentBites Lumericious. Keripik singkong yang renyah berselimutkan cokelat yang kaya akan membawa Anda pada perjalanan rasa yang elegan dan memuaskan.">Pesan
+            Sekarang</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Container 2 End -->
+
+  <!-- Footer -->
+  <footer class="bg-light text-center text-lg-start mt-5">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      © 2024 Copyright | Created By Fadhli :
+      <a class="text-dark" href="https://www.lumericious.byethost7.com">Lumericious</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer End -->
+
+  <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // JavaScript untuk menambahkan efek fade in saat navbar menjadi sticky
+    window.onscroll = function () {
+      stickyHeader();
+    };
+
+    var navbar = document.querySelector(".navbar");
+
+    function stickyHeader() {
+      if (window.pageYOffset > 0) {
+        navbar.classList.add(
+          "sticky-top",
+          "shadow-sm",
+          "animated",
+          "fadeInDown"
+        );
+      } else {
+        navbar.classList.remove(
+          "sticky-top",
+          "shadow-sm",
+          "animated",
+          "fadeInDown"
+        );
+      }
+    }
+    document.querySelectorAll('.pesan-sekarang').forEach(button => {
+      button.addEventListener('click', function () {
+        const productName = this.getAttribute('data-product');
+        const productImage = this.getAttribute('data-image');
+        const productDescription = this.getAttribute('data-description');
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push({
+          name: productName,
+          image: productImage,
+          description: productDescription,
+          quantity: 1
+        });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        window.location.href = 'cart.html';
+      });
+    });
+  </script>
+</body>
+
+</html>

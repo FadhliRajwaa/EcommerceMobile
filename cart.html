@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Lumericious</title>
+    <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <style>
+        .table img {
+            max-width: 100px; /* Set maximum width for desktop */
+            height: auto;
+            transition: transform 0.3s ease-in-out; /* Smooth scaling effect */
+        }
+
+        .table img:hover {
+            transform: scale(1.1); /* Zoom effect on hover */
+        }
+
+        .form-select, .form-control, .btn {
+            transition: all 0.3s ease-in-out; /* Smooth transitions */
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .btn-outline-secondary, .btn-danger {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-outline-secondary:hover, .btn-danger:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 767.98px) {
+            .table thead {
+                display: none;
+            }
+
+            .table tbody, .table tr, .table td {
+                display: block;
+                width: 100%;
+            }
+
+            .table tr {
+                margin-bottom: 1rem;
+            }
+
+            .table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            .table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 1rem;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            .table img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .new-item {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Keranjang Anda</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items"></tbody>
+        </table>
+        <button class="btn btn-primary" onclick="addNewItem()">Add New Item</button>
+    </div>
+
+    <script>
+        const products = [
+            {
+                name: 'ChocoCrunch Lumericious',
+                image: 'gambar-13.jpeg',
+                description: 'Temukan keajaiban rasa cokelat yang kaya dalam setiap gigitan ChocoCrunch Lumericious. Keripik singkong yang renyah, dipadukan sempurna dengan lapisan cokelat lezat, memberikan sensasi manis yang memanjakan dan kepuasan yang tak tertandingi.'
+            },
+            {
+                name: 'SweetMeltz Lumericious',
+                image: 'gambar-3.jpeg',
+                description: 'SweetMeltz Lumericious, snack yang sempurna untuk mengisi momen istimewa Anda. Dengan topping cokelat yang manis dan tekstur singkong yang renyah, ini adalah perpaduan rasa yang akan memikat hati dan lidah Anda.'
+            },
+            {
+                name: 'DecadentBites Lumericious',
+                image: 'gambar-4.jpeg',
+                description: 'Pengalaman rasa yang mewah menanti dengan DecadentBites Lumericious. Keripik singkong yang renyah berselimutkan cokelat yang kaya akan membawa Anda pada perjalanan rasa yang elegan dan memuaskan.'
+            }
+        ];
+
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                cartItems.innerHTML += `
+                    <tr class="new-item">
+                        <td data-label="Image"><img src="${item.image}" alt="${item.name}" class="img-fluid"></td>
+                        <td data-label="Product">
+                            <select data-index="${index}" class="form-select item-name" onchange="updateProduct(${index})">
+                                ${products.map(product => `<option value="${product.name}" ${product.name === item.name ? 'selected' : ''}>${product.name}</option>`).join('')}
+                            </select>
+                        </td>
+                        <td data-label="Description"><textarea data-index="${index}" class="form-control item-description" readonly>${item.description}</textarea></td>
+                        <td data-label="Quantity">
+                            <div class="d-flex">
+                                <button class="btn btn-outline-secondary" onclick="decreaseQuantity(${index})">-</button>
+                                <input type="number" value="${item.quantity}" data-index="${index}" class="form-control item-quantity" readonly style="width: 60px; text-align: center;">
+                                <button class="btn btn-outline-secondary" onclick="increaseQuantity(${index})">+</button>
+                            </div>
+                        </td>
+                        <td data-label="Actions">
+                            <button class="btn btn-danger" onclick="deleteItem(${index})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function addNewItem() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const defaultProduct = products[0];
+            cart.push({ name: defaultProduct.name, image: defaultProduct.image, description: defaultProduct.description, quantity: 1 });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function updateProduct(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const selectedProductName = document.querySelector(`.item-name[data-index='${index}']`).value;
+            const selectedProduct = products.find(product => product.name === selectedProductName);
+            cart[index] = { ...selectedProduct, quantity: cart[index].quantity };
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function deleteItem(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function increaseQuantity(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity++;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function decreaseQuantity(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCart);
+    </script>
+</body>
+
+</html>
